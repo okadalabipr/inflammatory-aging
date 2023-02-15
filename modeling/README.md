@@ -24,12 +24,4 @@ This requires Python 3.7 or later.
 
 ## Usage
 
-To get simulation results, please run the following code.
-
-```python
->>> from biomass import Model, run_simulation
->>> model = Model("TNFa_NFkB_model").create()
->>> run_simulation(model, viz_type="average", show_all=True)
-```
-
-Then the time-course simulation results will be saved in `TNFa_NFkB_model/figure/simulation/average/`.
+To run simulation, please open [`model_simulation_time_course.ipynb`](./model_simulation_time_course.ipynb).
