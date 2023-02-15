@@ -11,16 +11,16 @@ This requires Python 3.7 or later.
 
 ## Description
 
-| Name                  | Content                                                                                                  |
-| --------------------- | -------------------------------------------------------------------------------------------------------- |
-| `name2idx/`           | Names of model parameters and species                                                                    |
-| `out/`                | Parameter values that are estimated from experimental data                                               |
-| `reaction_network.py` | Reaction indices grouped according to biological processes                                               |
-| `set_model.py`        | Differential equation, parameters and initial condition                                                  |
-| `observalbe.py`       | Observables, simulations and experimental data                                                           |
-| `viz.py`              | Plotting parameters for customizing figure properties                                                    |
-| `set_search_param.py` | Lower and upper bounds of model parameters to be estimated                                               |
-| `fitness.py`          | An objective function to be minimized, i.e., the distance between model simulation and experimental data |
+| Name                                                           | Content                                                                                                  |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [`name2idx/`](./TNFa_NFkB_model/name2idx/)                     | Names of model parameters and species                                                                    |
+| [`out/`](./TNFa_NFkB_model/out/)                               | Parameter values that are estimated from experimental data                                               |
+| [`reaction_network.py`](./TNFa_NFkB_model/reaction_network.py) | Reaction indices grouped according to biological processes                                               |
+| [`set_model.py`](./TNFa_NFkB_model/set_model.py)               | Differential equation, parameters and initial condition                                                  |
+| [`observalbe.py`](./TNFa_NFkB_model/observable.py)             | Observables, simulations and experimental data                                                           |
+| [`viz.py`](./TNFa_NFkB_model/viz.py)                           | Plotting parameters for customizing figure properties                                                    |
+| [`set_search_param.py`](./TNFa_NFkB_model/set_search_param.py) | Lower and upper bounds of model parameters to be estimated                                               |
+| [`fitness.py`](./TNFa_NFkB_model/fitness.py)                   | An objective function to be minimized, i.e., the distance between model simulation and experimental data |
 
 ## Usage
 
