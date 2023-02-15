@@ -1,3 +1,12 @@
 # Inflammatory aging
 
-This repository contains analysis code for the following paper:
+## Installation
+
+```
+$ git clone https://github.com/okadalabipr/inflammatory-aging.git
+```
+
+## Contents
+
+- [`modeling/`](./modeling/): mathematical modeling of NF-κB dynamics on inflammatory aging
+- `bioinformatics/`: XXX
