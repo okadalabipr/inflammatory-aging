@@ -40,5 +40,3 @@ To reproduce results, please perform the analysis in the following order.
 * 4_MCF7_RELA_peaknum_analysis.R
 * 5_RNAseq_Correlation_anarysis.R
 * 6_Mouse_Rela_peaknum_analysis.R
-
-## License
