@@ -4,7 +4,7 @@ This repository contains the source code for the sequence analysis.
 Primary analysis was performed using an established pipeline.  
 * RNA-seq  -> https://nf-co.re/rnaseq/3.5  
 * ChIP-seq -> https://nf-co.re/chipseq/1.2.2  
-* ATAC-seq -> https://www.encodeproject.org/chip-seq/transcription_factor/  
+* ATAC-seq -> https://github.com/ENCODE-DCC/atac-seq-pipeline
 
 ## Requirements 
 ### for R
@@ -32,6 +32,15 @@ R version 4.1.3
 | Homer 	                                                     | 4.11                                                                                                     |
 
 ## Brief usage instruction
-
+Please add reference files in ['ref_file/'](./ref_file/). Required files are listed in each script.  
+Please add the files obtained by each pipeline in ['source_file/'](./source_file/). Details are described in each script.  
+Please perform the analysis in the following order
+To reproduce results, please perform the analysis in the following order.
+* 1_MCF7_RNAseq_analysis.R
+* 2_MCF7_ATACseq_analysis.R
+* 3_MCF7_ChIPseq_analysis.sh
+* 4_MCF7_RELA_peaknum_analysis.R
+* 5_RNAseq_Correlation_anarysis.R
+* 6_Mouse_Rela_peaknum_analysis.R
 
 ## License

@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(NSM3)
 
-setwd("NFkB_aging_paper/")
+setwd("inframmatory-aging/bioinfomatics/")
 dir.create("ATACseq_analysis/")
 
 #Analysis of chromatin accessibility in open chromatin regions near each cluster (fig3B)----
@@ -20,12 +20,12 @@ getdata <- function(n){
 }
 
 #load annotation file
-cs <- getdata("source_file/Control-IkBaKD_DESeq2_annotated.txt")
-cct <- getdata("source_file/Control-TNF_DESeq2_annotated.txt")
-cst <- getdata("source_file/Control-IkBaKD.TNF_DESeq2_annotated.txt")
+cs <- getdata("path to your Ctrl and IkBaKD peak comparison file obtained from GENCODE ATAC-seq pipeline (https://github.com/ENCODE-DCC/atac-seq-pipeline)")
+cct <- getdata("path to your Ctrl and TNF peak comparison file obtained from GENCODE ATAC-seq pipeline (https://github.com/ENCODE-DCC/atac-seq-pipeline)")
+cst <- getdata("path to your Ctrl and IkBaKDTNF peak comparison file obtained from GENCODE ATAC-seq pipeline (https://github.com/ENCODE-DCC/atac-seq-pipeline)")
 
 #load genelist
-pam1 <- read.csv("pam1.csv", col.names = "Gene.Name") #gene list from ~~ ‚É‘‚«Š·‚¦
+pam1 <- read.csv("pam1.csv", col.names = "Gene.Name") #Output of 1_MCF7_RNAseq_analysis.R
 pam2 <- read.csv("pam2.csv", col.names = "Gene.Name")
 pam3 <- read.csv("pam3.csv", col.names = "Gene.Name")
 pam4 <- read.csv("pam4.csv", col.names = "Gene.Name")
@@ -93,7 +93,6 @@ all$FC <- as.factor(all$FC)
 all$label <- as.factor(all$label)
 test <- pSDCFlig(all$FC, all$label, method="Asymptotic")
 test <- data.frame(label = test$labels , p.val = test$p.val)
-write.csv(test,"ATACseq_analysis/pval.csv")
 
 #Create MAplot(fig.S14B)
 getdata <- function(n){
@@ -108,7 +107,7 @@ getdata <- function(n){
   return(d)
 }
 
-cst <- getdata("source_file/Control-IkBaKD.TNF_DESeq2_annotated.txt")
+cst <- getdata("path to your Ctrl and IkBaKDTNF peak comparison file obtained from GENCODE ATAC-seq pipeline (https://github.com/ENCODE-DCC/atac-seq-pipeline)")
 cst$log2baseMean <- log2(cst$baseMean)
 
 ttmp <- rep(1, nrow(cst))
@@ -142,7 +141,7 @@ ggsave(file = "MAplot_opencst.png", plot = g, dpi = 600, width = 8, height = 7)
 #Extraction of open chromatin regions under IkBaKD+TNF condition within 10,000 bp from TSS
 cst_o <- dplyr::filter(cst,cst$log2FoldChange > 0, cst$padj < 0.05, abs(cst$Distance.to.TSS) < 10000) 
 
-pam1 <- read.csv("pam1.csv", col.names = "Gene.Name") #gene list from ~~ ‚É‘‚«Š·‚¦
+pam1 <- read.csv("pam1.csv", col.names = "Gene.Name") 
 pam2 <- read.csv("pam2.csv", col.names = "Gene.Name")
 pam3 <- read.csv("pam3.csv", col.names = "Gene.Name")
 pam4 <- read.csv("pam4.csv", col.names = "Gene.Name")

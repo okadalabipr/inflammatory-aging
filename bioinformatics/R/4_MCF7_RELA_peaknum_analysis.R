@@ -3,16 +3,16 @@ library(ggplot2)
 library(rtracklayer)
 library(NSM3)
 
-setwd("NFkB_aging_paper/")
+setwd("inframmatory-aging/bioinfomatics/")
 
 #List of genes registered in gencode----
-gtf <- readGFF("ref_file/gencode.v40.annotation.gtf")
+gtf <- readGFF("path to your gencode annotation file obtained from https://www.gencodegenes.org/human/release_40.html")
 gtf_gene <- subset(gtf, gtf$type == "gene" & gtf$gene_type == "protein_coding")
 gtf_gene <- gtf_gene$gene_name %>% as.data.frame() %>% dplyr::rename("Gene.Name" = 1) %>% distinct(Gene.Name, .keep_all=TRUE)
 rm(gtf)
 
 #Loading RELA ChIP peak files
-rela_siIkBa <- read.table("source_file/siIkBa_120_R2_peaks.annotatePeaks.txt", sep = "\t") 
+rela_siIkBa <- read.table("path to your ChIP peak annotation file in IkBaKD condition obtained from https://www.gencodegenes.org/human/release_40.html", sep = "\t") 
 colnames(rela_siIkBa) <- rela_siIkBa[1,] 
 rela_siIkBa <- rela_siIkBa[-1,]
 rela_siIkBa <- dplyr::select(rela_siIkBa, "Gene Name", "Distance to TSS")
@@ -23,7 +23,7 @@ rela_siIkBa_5000 <- dplyr::filter(rela_siIkBa, abs(rela_siIkBa$Distance.to.TSS) 
 
 #load genelist
 rela_target <- rela_siIkBa_5000$Gene.Name %>% unique() %>% as.data.frame() %>% dplyr::rename("Gene.Name" = 1) 
-pam1 <- read.csv("pam1.csv", col.names = "Gene.Name") %>% dplyr::inner_join(rela_target, by = "Gene.Name")
+pam1 <- read.csv("pam1.csv", col.names = "Gene.Name") %>% dplyr::inner_join(rela_target, by = "Gene.Name") #Output of 1_MCF7_RNAseq_analysis.R
 pam2 <- read.csv("pam2.csv", col.names = "Gene.Name") %>% dplyr::inner_join(rela_target, by = "Gene.Name")
 pam3 <- read.csv("pam3.csv", col.names = "Gene.Name") %>% dplyr::inner_join(rela_target, by = "Gene.Name")
 pam4 <- read.csv("pam4.csv", col.names = "Gene.Name") %>% dplyr::inner_join(rela_target, by = "Gene.Name")

@@ -9,24 +9,24 @@ library(clusterProfiler)
 library(VennDiagram)
 library(NSM3)
 
-setwd("NFkB_aging_paper/")
+setwd("inframmatory-aging/bioinfomatics/")
 dir.create("mouse_analysis/")
 
 #List of genes registered in gencode (mouse)
-gtf <- readGFF("ref_file/gencode.vM31.annotation.gtf")
+gtf <- readGFF("path to your gencode annotation file obtained from https://www.gencodegenes.org/mouse/release_M31.html")
 gtf_gene <- subset(gtf, gtf$type == "gene" & gtf$gene_type == "protein_coding")
 gtf_gene <- gtf_gene$gene_name %>% as.data.frame() %>% dplyr::rename("gene_name" = 1) %>% distinct(gene_name, .keep_all=TRUE)
 rm(gtf)
 
 #load Rela peak file 
-rela_annotate <- read.csv("source_file/mouse_all_RELA_merged_annotate.txt",sep = "\t")
+rela_annotate <- read.csv("path to your Mouse Rela ChIP-peak file obtained (Details are described in Method)",sep = "\t")
 rela_target <- dplyr::filter(rela_annotate,abs(rela_annotate$Distance.to.TSS) < 500) %>% dplyr::rename("gene_name" = 16)
 rela_target <- dplyr::inner_join(rela_target,gtf_gene, by = "gene_name") 
 rela_target <- rela_target$gene_name %>% unique() %>% as.data.frame()
 colnames(rela_target) <- "gene_id"
 
 #Classification by rate of increase in gene expression with aging (mouse heart)-----
-cnt <- read.table("source_file/salmon_mouse_heart_gene_count.tsv", header=T, stringsAsFactors=F,sep="\t")
+cnt <- read.table("path to your Mouse Heart RNA-seq count data obtained from nf-core pipeline (https://nf-co.re/rnaseq/3.5)", header=T, stringsAsFactors=F,sep="\t")
 cnt <- dplyr::select(cnt, -"gene_id")
 
 header <- c("gene_name", "old_rep1", "old_rep2", "old_rep3", "old_rep4", "old_rep5",
@@ -162,7 +162,7 @@ test <- data.frame(label = test$labels, p.val = test$p.val)
 
 #KEGG enrichment analysis-----
 #Correspondence table between Ensembl geneID and Uniprot symbol
-gtf <- readGFF("ref_file/gencode.vM31.annotation.gtf")
+gtf <- readGFF("path to your gencode annotation file obtained from https://www.gencodegenes.org/mouse/release_M31.html")
 gtf_gene <- subset(gtf, gtf$type == "gene" & gtf$gene_type == "protein_coding")
 gtf_gene <- gtf_gene[, c("gene_id","gene_name")]
 gtf_gene$gene_id <- gsub("\\..*", "", gtf_gene$gene_id)

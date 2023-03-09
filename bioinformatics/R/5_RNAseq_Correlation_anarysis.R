@@ -5,10 +5,10 @@ library(dplyr)
 library(ggplot2)
 library(ggrepel)
 
-setwd("NFkB_aging_paper/")
+setwd("inframmatory-aging/bioinfomatics/")
 
 # Basic function to convert mouse to human gene names----
-mouse_human_genes <- read.csv("ref_file/MGI_mouse_human_gene_Correspondence_table.csv")
+mouse_human_genes <- read.csv("path to your Human and mouse gene correspondence table obtained from http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt")
 convert_mouse_to_human <- function(gene_list){
   df <- data.frame(matrix(rep(NA, 2), nrow=1))[numeric(0), ]
   for(gene in gene_list2){
@@ -24,7 +24,7 @@ convert_mouse_to_human <- function(gene_list){
 }
 
 #Correspondence table between Ensembl geneID and Uniprot symbol----
-gtf <- readGFF("ref_file/gencode.v40.annotation.gtf")
+gtf <- readGFF("path to your gencode annotation file obtained from https://www.gencodegenes.org/human/release_40.html")
 gtf_gene <- subset(gtf, gtf$type == "gene" & gtf$gene_type == "protein_coding")
 gtf_gene <- gtf_gene[, c("gene_id","gene_name")]
 gtf_gene <- gtf_gene %>% distinct(gene_name, .keep_all=TRUE)
@@ -32,7 +32,7 @@ colnames(gtf_gene) <- c("Geneid", "gene_name")
 rm(gtf)
 
 # FC calculation for each gene in MCF7 (Ctrl vs IkBaKD+TNF)------
-mcf7 <- read.table("source_file/salmon_MCF7_48h_gene_count.tsv", 
+mcf7 <- read.table("path to your MCF7 RNA-seq count data obtained from nf-core pipeline (https://nf-co.re/rnaseq/3.5)", 
                    header=T, stringsAsFactors=F,sep="\t")
 mcf7 <- dplyr::select(mcf7, "gene_name", "MCF7_CONTsi_1", "MCF7_CONTsi_2", "MCF7_CONTsi_3",
                       "MCF7_IKBAsi_TNF_1", "MCF7_IKBAsi_TNF_2", "MCF7_IKBAsi_TNF_3")
@@ -66,7 +66,7 @@ colnames(mcf7) <- c("human_gene_name", "mcf7_cst_log2fc", "mcf7_cst_padj")
 
 
 # FC calculation for each gene in mouse heart tissue (young vs aged)-----
-cnt <- read.table("source_file/salmon_mouse_heart_gene_count.tsv", 
+cnt <- read.table("path to your Mouse Heart RNA-seq count data obtained from nf-core pipeline (https://nf-co.re/rnaseq/3.5)", 
                   header=T, stringsAsFactors=F,sep="\t")
 cnt <- dplyr::select(cnt, -"gene_id")
 
@@ -112,7 +112,7 @@ sp <- read.csv("ref_file/senescence_related_gene.csv") #read senescense gene lis
 h_m_list[!h_m_list %in% sp$x] <- ""
 h_m$gene_name <- h_m_list
 
-pam1 <- read.csv("pam1.csv",col.names = "human_gene_name") #load genelist
+pam1 <- read.csv("pam1.csv",col.names = "human_gene_name") #Output of 1_MCF7_RNAseq_analysis.R
 pam2 <- read.csv("pam2.csv",col.names = "human_gene_name")
 pam3 <- read.csv("pam3.csv",col.names = "human_gene_name")
 pam4 <- read.csv("pam4.csv",col.names = "human_gene_name")

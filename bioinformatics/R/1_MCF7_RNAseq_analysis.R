@@ -9,7 +9,7 @@ library(circlize)
 library(reshape2)
 library(clusterProfiler)
 
-setwd("NFkB_aging_paper/")
+setwd("inframmatory-aging/bioinfomatics/")
 
 StripVer <- function(ID){
   N <- regexpr("\\.", ID)[[1]]
@@ -17,7 +17,7 @@ StripVer <- function(ID){
 }
 
 #Correspondence table between Ensembl geneID and Uniprot symbol----
-gtf <- readGFF("ref_file/gencode.v40.annotation.gtf")
+gtf <- readGFF("path to your gencode annotation file obtained from https://www.gencodegenes.org/human/release_40.html")
 gtf_gene <- subset(gtf, gtf$type == "gene" & gtf$gene_type == "protein_coding")
 gtf_gene <- gtf_gene[, c("gene_id", "gene_name")]
 gtf_gene <- gtf_gene %>% distinct(gene_name, .keep_all=TRUE)
@@ -25,7 +25,7 @@ colnames(gtf_gene) <- c("Geneid", "gene_name")
 rm(gtf)
 
 #DEG detection ------
-mcf7 <- read.table("source_file/salmon_MCF7_48h_gene_count.tsv", 
+mcf7 <- read.table("path to your MCF7 RNA-seq count data obtained from nf-core pipeline (https://nf-co.re/rnaseq/3.5)", 
                    header=T, stringsAsFactors=F, sep="\t")
 mcf7 <- dplyr::select(mcf7, "gene_name", "MCF7_CONTsi_TNF_1", "MCF7_CONTsi_TNF_2", "MCF7_CONTsi_TNF_3",
                       "MCF7_IKBAsi_TNF_1", "MCF7_IKBAsi_TNF_2", "MCF7_IKBAsi_TNF_3")
@@ -111,7 +111,7 @@ ggsave(file = "volcanoplot.png", plot = g, dpi = 600, width = 10, height = 10)
 
 
 # clustering by expression pattern -----
-mcf7_tc <- read.table("source_file/salmon_MCF7_timecourse_gene_TPM.tsv", 
+mcf7_tc <- read.table("path to your MCF7 timecourse RNA-seq TPM data obtained from nf-core pipeline (https://nf-co.re/rnaseq/3.5)", 
                       header=T, stringsAsFactors=F,sep="\t")
 mcf7_tc <- dplyr::select(mcf7_tc, "gene_name", 
                          "siIkBa_0_min_rep1", "siIkBa_0_min_rep2", "siIkBa_15_min_rep1", "siIkBa_15_min_rep2", 
