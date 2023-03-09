@@ -32,8 +32,8 @@ R version 4.1.3
 | Homer 	                                                     | 4.11                                                                                                     |
 
 ## Brief usage instruction
-- Please add reference files in ['ref_file/'](./ref_file/). Required files are listed in each script.  
-- To reproduce results, please perform the analysis in the following order.
+Please add reference files in [`ref_file/`](./ref_file/). Required files are listed in each script.  
+To reproduce results, please perform the analysis in the following order.  
 * 1_MCF7_RNAseq_analysis.R
 * 2_MCF7_ATACseq_analysis.R
 * 3_MCF7_ChIPseq_analysis.sh
