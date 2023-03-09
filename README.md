@@ -10,3 +10,7 @@ $ git clone https://github.com/okadalabipr/inflammatory-aging.git
 
 - [`modeling/`](./modeling/): mathematical modeling of NF-κB dynamics on inflammatory aging
 - [`bioinformatics/`](./bioinformatics/): sequencing data analysis of the association between NF-κB dynamics and aging
+
+## License
+
+MIT
